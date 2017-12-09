@@ -1,25 +1,30 @@
-console.log('app.js is running!')
-		
-var app = {
+
+const app = {
 	title:'Indecision App',
 	subtitle: 'Put your life in the hands of a computer',
+	options: []
 }
+
 // JSX - Javascript XML
 
-var template = (
+//only render the subtitle (and p tag) if subtitle exist - logical && operator
+//render new p tag - if options.length > 0 "Here are your options" if 
+
+const template = (
 	<div>
 		<h1>{app.title}</h1>
-		<p>{app.subtitle}</p>
+		{app.subtitle && <p> {app.subtitle}</p>}
+		<p>{app.options.length > 0 ? 'Here are your options' : 'No Options'}</p>
 		<ol>
 			<li>Item one</li>
-			<li>Item two</li>
+			<li>Item checktwo</li>
 		</ol>
 	</div>
 );
 
-var user = {
+const user = {
 	name: 'Robin',
-	age: 'Over the Hill',
+	age: '24',
 	location: 'Santa Cruz'	,
 };
 
@@ -30,14 +35,14 @@ function getLocation(location) {
 		return undefined;
 	}
 }
-var templateTwo = (
+const templateTwo = (
 	<div>
-		<h1>{user.name}</h1>
-		<p>Age: {user.age}</p>	
-		<p>{getLocation(user.location)}</p>
+		<h1>{user.name ? user.name : 'Anonymous'}</h1>
+		{(user.age && user.age >= 18) && <p>Age: {user.age}</p>}	
+		{getLocation(user.location)}
 	</div>
 	);
 
-var appRoot = document.getElementById('app');
+const appRoot = document.getElementById('app');
 
-ReactDOM.render(templateTwo, appRoot); 
+ReactDOM.render(template, appRoot); 

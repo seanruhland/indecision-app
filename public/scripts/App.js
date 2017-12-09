@@ -1,80 +1,40 @@
 'use strict';
 
-console.log('app.js is running!');
+//arguments object - no longer bounc with arrow functions
 
-var app = {
-	title: 'Indecision App',
-	subtitle: 'Put your life in the hands of a computer'
-	// JSX - Javascript XML
+var add = function add(a, b) {
 
-};var template = React.createElement(
-	'div',
-	null,
-	React.createElement(
-		'h1',
-		null,
-		app.title
-	),
-	React.createElement(
-		'p',
-		null,
-		app.subtitle
-	),
-	React.createElement(
-		'ol',
-		null,
-		React.createElement(
-			'li',
-			null,
-			'Item one'
-		),
-		React.createElement(
-			'li',
-			null,
-			'Item two'
-		)
-	)
-);
+	return a + b;
+};
+console.log(add(55, 1));
+
+//this keyword - no longer bound 
 
 var user = {
-	name: 'Robin',
-	age: 'Over the Hill',
-	location: 'Santa Cruz'
-};
+	name: 'Sean',
+	cities: ['Santa Cruz', 'Huntington Beach', 'Los Angeles'],
+	printPlacesLived: function printPlacesLived() {
+		var _this = this;
 
-function getLocation(location) {
-	if (location) {
-		return React.createElement(
-			'p',
-			null,
-			'Location: ',
-			location
-		);
-	} else {
-		return undefined;
+		return this.cities.map(function (city) {
+			return _this.name + ' has lived in ' + city;
+		});
 	}
-}
-var templateTwo = React.createElement(
-	'div',
-	null,
-	React.createElement(
-		'h1',
-		null,
-		user.name
-	),
-	React.createElement(
-		'p',
-		null,
-		'Age: ',
-		user.age
-	),
-	React.createElement(
-		'p',
-		null,
-		getLocation(user.location)
-	)
-);
+};
+console.log(user.printPlacesLived());
 
-var appRoot = document.getElementById('app');
+var multiplier = {
+	//numbers - array of numbers
+	//multiplyBy - single number
+	//multiply - return a new array where hte number has been multiplied. 
+	numbers: [2, 7, 5],
+	multiplyBy: 5,
+	multiply: function multiply() {
+		var _this2 = this;
 
-ReactDOM.render(templateTwo, appRoot);
+		return this.numbers.map(function (number) {
+			return number * _this2.multiplyBy;
+		});
+	}
+};
+console.log(multiplier.multiply());
