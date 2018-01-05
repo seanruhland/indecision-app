@@ -5,6 +5,17 @@ const app = {
 	options: []
 }
 
+const onFormSubmit = (e) => {
+	e.preventDefault();
+
+	const option = e.target.elements.option.value;
+
+	if (option) {
+		app.options.push(option);
+		e.target.elements.option.value = '';
+	}
+} 
+
 // JSX - Javascript XML
 
 //only render the subtitle (and p tag) if subtitle exist - logical && operator
@@ -19,30 +30,13 @@ const template = (
 			<li>Item one</li>
 			<li>Item checktwo</li>
 		</ol>
+		<form onSubmit={onFormSubmit}>
+			<input type="text" name="option"/>
+			<button>Add Option</button>
+		</form>
 	</div>
 );
 
-const user = {
-	name: 'Robin',
-	age: '24',
-	location: 'Santa Cruz'	,
-};
-
-function getLocation(location) {
-	if (location) {
-		return <p>Location: {location}</p>;
-	} else {
-		return undefined;
-	}
-}
-const templateTwo = (
-	<div>
-		<h1>{user.name ? user.name : 'Anonymous'}</h1>
-		{(user.age && user.age >= 18) && <p>Age: {user.age}</p>}	
-		{getLocation(user.location)}
-	</div>
-	);
-
 const appRoot = document.getElementById('app');
 
-ReactDOM.render(template, appRoot); 
+ReactDOM.render(template, appRoot)
