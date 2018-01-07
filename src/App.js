@@ -1,9 +1,10 @@
 
 const app = {
 	title:'Indecision App',
-	subtitle: 'Put your life in the hands of a computer',
+	subtitle: 'Put your life in the safe hands of a computer',
 	options: []
 }
+
 
 const onFormSubmit = (e) => {
 	e.preventDefault();
@@ -13,30 +14,45 @@ const onFormSubmit = (e) => {
 	if (option) {
 		app.options.push(option);
 		e.target.elements.option.value = '';
+	renderListArray();
 	}
 } 
 
-// JSX - Javascript XML
+const reset = () => {
+	app.options = [];
+	renderListArray();
+}
 
-//only render the subtitle (and p tag) if subtitle exist - logical && operator
-//render new p tag - if options.length > 0 "Here are your options" if 
-
-const template = (
-	<div>
-		<h1>{app.title}</h1>
-		{app.subtitle && <p> {app.subtitle}</p>}
-		<p>{app.options.length > 0 ? 'Here are your options' : 'No Options'}</p>
-		<ol>
-			<li>Item one</li>
-			<li>Item checktwo</li>
-		</ol>
-		<form onSubmit={onFormSubmit}>
-			<input type="text" name="option"/>
-			<button>Add Option</button>
-		</form>
-	</div>
-);
+const onMakeDecision = () => {
+	const randomNum = Math.floor(Math.random() * app.options.length);
+	const option = app.options[randomNum];
+	alert(option);
+}
 
 const appRoot = document.getElementById('app');
 
-ReactDOM.render(template, appRoot)
+const numbers = [55, 101, 1000];
+
+const renderListArray = () => {
+	const template = (
+		<div>
+			<h1>{app.title}</h1>
+			{app.subtitle && <p> {app.subtitle}</p>}
+			<p>{app.options.length > 0 ? 'Here are your options' : 'No Options'}</p>
+			<button disabled={app.options.length === 0} onClick={onMakeDecision}>What Should I Do?</button>
+			<button onClick= {reset} >Remove All</button>
+			<ol>
+					{
+						app.options.map((option) => <li key={option}>{option}</li>)
+				}
+
+			</ol>
+			<form onSubmit={onFormSubmit}>
+				<input type="text" name="option"/>
+				<button>Add Option</button>
+			</form>
+		</div>
+	);
+	ReactDOM.render(template, appRoot)
+}
+renderListArray();
